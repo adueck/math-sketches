@@ -1,0 +1,37 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "Unique factorization of integers theorem defined recursively from the divisibility by prime theorem:\n\nEvery integer greater than 1 is divisible by a prime number. That means that it will either:\n - be a prime number and be divisible by itself (base case), or\n - produce a prime number factor plus another integer greater\n   than 1 which whill be divisible by a prime number\n\nThis process leads to the production of unique factors for an integer > 1"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61];\n\ntype Factors = number[];\n\nfunction uniqFact(n: number, factors: Factors = []): Factors {\n    if (n > Math.max(...primes)) {\n        throw new Error(\"number bigger than list of primes\");\n    }\n    for (const prime of primes) {\n        if (prime === n) {\n            return [prime, ...factors];\n        }\n        if (n % prime === 0) {\n            return uniqFact(n / prime, [prime, ...factors]);\n        }\n    }\n    throw new Error(\"unmatched in primes\");\n}\n\nconsole.log(uniqFact(46));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[ 23, 2 ]",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}
